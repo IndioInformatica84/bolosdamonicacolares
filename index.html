@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtj4rSg_agyIqTM49Q16j2BehkEUUsjLd0lZ-yGg4rfgYivs6q" sizes="32x32">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bolos da Mônica - doçuras e travessuras</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+:root{--rosa:#ff4d8d;--roxo:#7c3aed;--amarelo:#ffd93d;--verde:#2ec4a5;--creme:#fff7ed}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Poppins,sans-serif;background:var(--creme);overflow-x:hidden}
+.topo{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:2px solid #ffe4e6;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.logo{font-family:Pacifico,cursive;font-size:30px;color:var(--rosa);line-height:1}.logo span{color:var(--roxo)}.logo small{display:block;font-family:Poppins;font-size:10px;letter-spacing:3px;color:#ff8fab;text-transform:uppercase;margin-top:2px}
+.carrinho-btn{background:var(--rosa);color:#fff;border:none;border-radius:30px;padding:10px 18px;font-weight:800;cursor:pointer;display:flex;gap:8px;align-items:center;box-shadow:0 8px 20px rgba(255,77,141,.3);animation:float 3s infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.hero{text-align:center;padding:28px 16px 10px;background:radial-gradient(circle at 30% 20%,#ffd6e7 0%,#fff7ed 50%,#d9f99d 100%)}
+.hero h1{font-family:Pacifico;font-size:clamp(28px,6vw,44px);color:var(--roxo);line-height:.9}.hero h1 b{color:var(--rosa)}.hero p{color:#7c3aed;font-weight:600;font-size:clamp(12px,2.5vw,14px);margin-top:10px}
+.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;padding:18px;max-width:1200px;margin:0 auto 10px auto}
+@media(max-width:600px){.grade{grid-template-columns:1fr 1fr;gap:10px;padding:10px}.card img{height:130px}.card h3{font-size:13px}.card p{font-size:10px;min-height:28px}.preco{font-size:16px}}
+@media(min-width:1024px){.grade{grid-template-columns:repeat(3,1fr);gap:22px}}
+.card{background:#fff;border-radius:26px;padding:14px;border:2px solid #ffe4e6;box-shadow:0 10px 30px rgba(0,0,0,.06);transition:.3s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-5px) rotate(.3deg);box-shadow:0 20px 40px rgba(255,77,141,.15)}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:18px;background:#fff1f2;display:block}
+.badge-tipo{position:absolute;top:18px;left:18px;background:var(--amarelo);color:#000;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px}
+.card h3{font-size:16px;margin:10px 0 4px;color:#4c1d95}.card p{font-size:11px;color:#666;min-height:36px;line-height:1.4}
+.preco{font-size:20px;font-weight:800;color:var(--rosa);margin:8px 0}
+.controles{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.qtd{display:flex;align-items:center;gap:6px;background:#fff1f2;border-radius:20px;padding:4px 8px}
+.qtd button{width:32px;height:32px;border-radius:50%;border:none;background:#fff;font-weight:800;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.qtd span{min-width:18px;text-align:center;font-weight:800;font-size:13px}
+.add{flex:1;background:linear-gradient(90deg,var(--rosa),var(--roxo));color:#fff;border:none;border-radius:20px;padding:10px;font-weight:800;cursor:pointer;min-width:100px}
+.btn-final{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);width:94%;max-width:520px;background:linear-gradient(90deg,#ff4d8d,#7c3aed);color:#fff;border:none;border-radius:30px;padding:18px;font-size:clamp(14px,4vw,18px);font-weight:800;box-shadow:0 12px 30px rgba(124,58,237,.4);z-index:60;cursor:pointer;display:none;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,77,141,.7)}70%{box-shadow:0 0 0 18px rgba(255,77,141,0)}100%{box-shadow:0 0 0 0 rgba(255,77,141,0)}}
+.modal{position:fixed;inset:0;background:rgba(20,10,30,.75);backdrop-filter:blur(10px);z-index:100;display:none;align-items:center;justify-content:center;padding:12px}
+.modal.show{display:flex}.modal-box{background:#fff;border-radius:28px;width:100%;max-width:520px;max-height:94vh;overflow:auto;padding:20px;animation:pop.4s cubic-bezier(.175,.885,.32,1.275)}
+@keyframes pop{0%{transform:scale(.85)}100%{transform:scale(1)}}
+.input{width:100%;padding:12px 14px;border-radius:14px;border:2px solid #ffe4e6;margin:6px 0 10px;font-size:14px;outline:none}.input:focus{border-color:var(--rosa)}
+.resumo{background:#fff7ed;border-radius:16px;padding:12px;border:1px dashed #f9a8d4;font-size:12px;margin:10px 0}
+.btn-gps{background:var(--verde);color:#fff;border:none;border-radius:12px;padding:8px 12px;font-size:12px;font-weight:700;cursor:pointer;margin-bottom:8px}
+.btn-enviar{background:linear-gradient(90deg,var(--rosa),var(--roxo));color:#fff;border:none;border-radius:20px;padding:14px;width:100%;font-weight:800;font-size:16px;cursor:pointer;margin-top:10px}
+.obrigado{text-align:center;padding:20px;display:none}.obrigado h2{font-family:Pacifico;font-size:clamp(26px,5vw,42px);color:var(--rosa);animation:bounce 1s infinite alternate}
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+.barra-tempo{height:6px;background:#ffe4e6;border-radius:20px;overflow:hidden;margin:14px 0}
+.barra-tempo div{height:100%;background:linear-gradient(90deg,var(--rosa),var(--roxo));width:100%;animation:contagem 5s linear forwards}
+@keyframes contagem{from{width:100%}to{width:0%}}
+#btnAdmInvisivel{position:fixed;top:0;left:0;width:30px;height:30px;background:transparent;border:none;z-index:9999;opacity:0;cursor:pointer}
+.footer-pag{background:#fff;border-top:3px solid #ffe4e6;margin-top:20px;padding:24px 16px;text-align:center}
+.footer-pag h4{font-family:Pacifico;color:var(--roxo);font-size:24px;margin-bottom:6px}
+.pag-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:16px 0}
+.pag-item{background:#fff;border:2px solid #ffe4e6;border-radius:16px;padding:10px 14px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 12px rgba(0,0,0,.05);min-width:140px;justify-content:center}
+.pag-item img{width:40px;height:26px;object-fit:contain}
+.pag-item span{font-size:12px;font-weight:700;color:#4c1d95}
+.pag-pix{background:linear-gradient(90deg,#2ec4a5,#06b6d4);color:#fff;border-color:#2ec4a5}.pag-pix span{color:#fff}
+.footer-bottom{margin-top:18px;padding-top:14px;border-top:1px dashed #ffe4e6;font-size:10px;color:#999;display:flex;flex-direction:column;gap:6px;align-items:center}
+@media(min-width:768px){.footer-bottom{flex-direction:row;justify-content:space-between}}
+</style>
+</head>
+<body>
+
+<script>
+// COLE AQUI SEU LINK DO APPS SCRIPT https://script.google.com/macros/s/SEU_ID/exec
+const PLANILHA_URL = "https://script.google.com/macros/s/AKfycbxYGkFj62ts_k3RRbueZZKeqYKhQ-KrOy4rz7o5N9mNNh0rgHToQ_5qMgSLJmvNr0w49w/exec";
+</script>
+
+<button id="btnAdmInvisivel" aria-label="adm"></button>
+
+<div class="topo">
+<div class="logo">Bolos da <span>Mônica</span><small>doçuras e travessuras</small></div>
+<button class="carrinho-btn" onclick="abrirCarrinho()"><i class="bi bi-bag-heart-fill"></i> <span id="qtdCarrinho">0</span> - R$ <span id="totalTopo">0,00</span></button>
+</div>
+
+<div class="hero">
+<h1>doçuras <b>&</b> travessuras</h1>
+<p>🎂 Cidade de Colares PA - Produtos de ótima qualidade</p>
+<p style="font-size:10px;color:#ff8fab;margin-top:4px"></p>
+</div>
+
+<div class="grade" id="grade"></div>
+
+<button id="btnFinalizarGrande" class="btn-final" onclick="abrirCarrinho()">🎉 FINALIZAR COMPRA - <span id="totalFinal">R$ 0,00</span></button>
+
+<footer class="footer-pag">
+<h4>Aceitamos</h4>
+<p style="font-size:12px;color:#666">Pagamento fácil, seguro e rápido</p>
+<div class="pag-grid">
+<div class="pag-item"><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR3q66ms9Kum_ktBeRwMGQQBPbmpbZKorueOLHVsbdJT5jmZ6wl" alt="credito"><span>Crédito</span></div>
+<div class="pag-item"><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSP50D3nEJdHz7gkweDKiHHp1Sce1waBVt3UOrQCNGn7lamBrgO" alt="debito"><span>Débito</span></div>
+<div class="pag-item pag-pix"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRI08pJI7WwKnLq6Z05qjKr0RQAqeHHBtQnOdb0x99Hn4HMqbC0" alt="pix" style="background:#fff;padding:2px;border-radius:4px"><span>PIX</span></div>
+</div>
+<div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:14px 0">
+<span style="background:#fff1f2;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;color:var(--rosa)"><i class="bi bi-shield-check"></i> Compra 100% Segura</span>
+<span style="background:#f5f3ff;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;color:var(--roxo)"><i class="bi bi-truck"></i> Entrega em Colares</span>
+<span style="background:#ecfdf5;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;color:#065f46"><i class="bi bi-whatsapp"></i> Atendimento Vip</span>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Bolos da Mônica - doçuras e travessuras - COLARES PA</span>
+<span></span>
+</div>
+</footer>
+
+<div class="modal" id="modalCheckout">
+<div class="modal-box">
+<div style="display:flex;justify-content:space-between;align-items:center"><h3 style="font-family:Pacifico;color:var(--roxo)">Seu pedido 💖</h3><button onclick="fechar('modalCheckout')" style="border:none;background:#fff1f2;width:36px;height:36px;border-radius:50%;cursor:pointer;font-weight:800">✕</button></div>
+<div id="resumoPedido" class="resumo"></div>
+<div id="formPedido">
+<label style="font-size:11px;font-weight:800;color:var(--roxo)">NOME COMPLETO *</label>
+<input id="nomeCli" class="input" placeholder="Seu Nome">
+<label style="font-size:11px;font-weight:800;color:var(--roxo)">ENDEREÇO ENTREGA *</label>
+<button class="btn-gps" onclick="compartilharGPS()"><i class="bi bi-geo-alt-fill"></i> Compartilhar meu GPS</button>
+<input id="enderecoCli" class="input" placeholder="Rua, número, bairro, referência">
+<small id="gpsInfo" style="font-size:10px;color:var(--verde);font-weight:600"></small>
+<label style="font-size:11px;font-weight:800;color:var(--roxo);margin-top:8px;display:block">WHATSAPP *</label>
+<input id="zapCli" class="input" placeholder="(91) 9xxxx-xxxx">
+<button id="btnEnviar" class="btn-enviar" onclick="enviarPedido()">🍰 ENVIAR PEDIDO AGORA</button>
+<p style="font-size:10px;color:#666;margin-top:8px;text-align:center"></p>
+</div>
+<div id="areaObrigado" class="obrigado">
+<h2>Compra finalizada com sucesso! 🎉</h2>
+<p style="font-size:18px;font-weight:800;color:#4c1d95;margin:12px 0">Obrigada! Seu pedido foi entregue!</p>
+<div style="background:#ecfdf5;border:2px solid #2ec4a5;border-radius:16px;padding:12px;margin:12px 0"><p style="font-weight:800;color:#065f46"><i class="bi bi-check-circle-fill"></i> Pedido enviado com sucesso!</p><p style="font-size:12px;color:#065f46">⏳ Aguarde confirmação via WhatsApp</p></div>
+<div class="barra-tempo"><div></div></div>
+<p style="font-size:11px;color:#999"> <b id="contador">5</b> </p>
+</div>
+</div>
+</div>
+
+<div class="modal" id="modalAdmLogin">
+<div class="modal-box" style="max-width:360px;text-align:center">
+<h3 style="font-family:Pacifico;color:var(--roxo)">ADM Secreto</h3>
+<p style="font-size:11px;color:#888">Canto superior esquerdo invisível - 30px</p>
+<input id="admUser" class="input" placeholder="Usuário: " value="">
+<input id="admPass" type="password" class="input" placeholder="Senha: ">
+<button class="btn-enviar" onclick="logarAdm()">Entrar ADM</button>
+<button onclick="fechar('modalAdmLogin')" style="margin-top:10px;background:none;border:none;color:#999;cursor:pointer">Fechar</button>
+</div>
+</div>
+
+<div class="modal" id="modalAdm">
+<div class="modal-box" style="max-width:620px">
+<div style="display:flex;justify-content:space-between;align-items:center"><h3 style="color:var(--roxo)">🍰 ADM - Produtos na Planilha</h3><button onclick="fechar('modalAdm')" style="border:none;background:#fff1f2;width:36px;height:36px;border-radius:50%;cursor:pointer">✕</button></div>
+<label style="font-size:11px;font-weight:800">Link da imagem (URL)</label><input id="admImg" class="input" placeholder="https://...jpg">
+<label style="font-size:11px;font-weight:800">Nome do bolo</label><input id="admNome" class="input" placeholder="Ex: Bolo de Chocolate com Morango">
+<label style="font-size:11px;font-weight:800">Descrição</label><input id="admDesc" class="input" placeholder="Ex: Massa fofa, brigadeiro, morangos...">
+<label style="font-size:11px;font-weight:800">Valor R$</label><input id="admValor" type="number" step="0.01" class="input" placeholder="Ex: 55.00">
+<label style="font-size:11px;font-weight:800">Tipo (tag)</label><input id="admTipo" class="input" placeholder="Ex: Mais pedido, Doçura, Colorido">
+<button class="btn-enviar" onclick="salvarProduto()">+ Adicionar Produto na Planilha</button>
+<div id="admLista" style="max-height:260px;overflow:auto;border:1px solid #eee;border-radius:12px;padding:8px;margin-top:12px;background:#fafafa"></div>
+<p style="font-size:10px;color:#999;margin-top:8px">Login: victor santos / ninodogral20 | Produtos salvos na aba Produtos da planilha | Atualização site a cada 5s sem refresh</p>
+</div>
+</div>
+
+<script>
+let produtos = [];
+let carrinho = JSON.parse(localStorage.getItem('bolos_monica_carrinho')||'{}');
+let produtosLocaisFallback = [
+ {id:1, nome:"Bolo Choco Travessura", desc:"Massa chocolate 50% cacau, brigadeiro cremoso e morangos", preco:55, img:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500", tipo:"Mais pedido"},
+ {id:2, nome:"Bolo Doçura Leite Ninho", desc:"Massa baunilha fofinha, leite ninho com Nutella", preco:62, img:"https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500", tipo:"Doçura"},
+ {id:3, nome:"Bolo Arco-íris da Mônica", desc:"Colorido por dentro, chantininho e confeitos", preco:48, img:"https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=500", tipo:"Colorido"},
+ {id:4, nome:"Bolo Red Velvet Amor", desc:"Vermelho aveludado com cream cheese", preco:68, img:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500", tipo:"Elegante"},
+ {id:5, nome:"Bolo Piscina Brigadeiro", desc:"Vulcão com piscina de brigadeiro", preco:52, img:"https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=500", tipo:"Travessura"},
+ {id:6, nome:"Bolo Mesversário Fofo", desc:"Mini bolo 12cm perfeito para fotos", preco:35, img:"https://images.unsplash.com/photo-1517424084456-2d6aed5ff48b?w=500", tipo:"Fofo"}
+];
+
+function getUrl(){ return (typeof PLANILHA_URL!=='undefined'?PLANILHA_URL:'').trim(); }
+
+async function carregarProdutosDaPlanilha(){
+  const url = getUrl();
+  if(!url ||!url.includes('script.google.com')){
+    if(produtos.length===0){ produtos = produtosLocaisFallback; renderGrade(); }
+    return;
+  }
+  try{
+    const res = await fetch(url + "?acao=getprodutos&t="+Date.now());
+    const json = await res.json();
+    if(json.ok && json.produtos && json.produtos.length>0){
+      const novoHash = JSON.stringify(json.produtos);
+      const antigoHash = JSON.stringify(produtos);
+      if(novoHash!==antigoHash){
+        produtos = json.produtos;
+        renderGrade();
+      }
+    }else{
+      if(produtos.length===0){ produtos = produtosLocaisFallback; renderGrade(); }
+    }
+  }catch(e){
+    if(produtos.length===0){ produtos = produtosLocaisFallback; renderGrade(); }
+  }
+}
+
+function salvarTudo(){ localStorage.setItem('bolos_monica_carrinho', JSON.stringify(carrinho)); }
+function renderGrade(){ const g=document.getElementById('grade'); if(!g) return; g.innerHTML=''; produtos.forEach(p=>{ const qtd=carrinho[p.id]||0; g.innerHTML+=`<div class="card"><span class="badge-tipo">${p.tipo||'Doçura'}</span><img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300?text=Bolo'"><h3>${p.nome}</h3><p>${p.desc}</p><div class="preco">R$ ${Number(p.preco).toFixed(2).replace('.',',')}</div><div class="controles"><div class="qtd"><button onclick="alterarQtd(${p.id},-1)">-</button><span id="q-${p.id}">${qtd}</span><button onclick="alterarQtd(${p.id},1)">+</button></div><button class="add" onclick="addCarrinho(${p.id})"><i class="bi bi-bag-plus-fill"></i> Adicionar</button></div></div>`; }); atualizarTotais(); renderAdmLista(); }
+function alterarQtd(id,delta){ let atual=carrinho[id]||0; atual=Math.max(0,atual+delta); if(atual===0) delete carrinho[id]; else carrinho[id]=atual; salvarTudo(); const el=document.getElementById('q-'+id); if(el) el.innerText=atual; atualizarTotais(); }
+function addCarrinho(id){ carrinho[id]=(carrinho[id]||0)+1; salvarTudo(); renderGrade(); const b=document.querySelector('.carrinho-btn'); b.style.transform='scale(1.15)'; setTimeout(()=>b.style.transform='scale(1)',200); }
+function atualizarTotais(){ let total=0,q=0; for(let id in carrinho){ const p=produtos.find(x=>x.id==id); if(p){ total+=Number(p.preco)*carrinho[id]; q+=carrinho[id]; } } document.getElementById('qtdCarrinho').innerText=q; document.getElementById('totalTopo').innerText=total.toFixed(2).replace('.',','); document.getElementById('totalFinal').innerText='R$ '+total.toFixed(2).replace('.',','); document.getElementById('btnFinalizarGrande').style.display=q>0?'block':'none'; renderResumo(); }
+function renderResumo(){ let h=''; let total=0; if(Object.keys(carrinho).length===0){ h='<p style="text-align:center;color:#999">Carrinho vazio 🍰</p>'; } else{ for(let id in carrinho){ const p=produtos.find(x=>x.id==id); if(!p) continue; const sub=Number(p.preco)*carrinho[id]; total+=sub; h+=`<div style="display:flex;justify-content:space-between;margin:6px 0"><span>${carrinho[id]}x ${p.nome}</span><b>R$ ${sub.toFixed(2).replace('.',',')}</b></div>`; } h+=`<div style="border-top:1px dashed #f9a8d4;margin-top:8px;padding-top:8px;display:flex;justify-content:space-between;font-weight:800"><span>Total</span><span style="color:var(--rosa)">R$ ${total.toFixed(2).replace('.',',')}</span></div>`; } document.getElementById('resumoPedido').innerHTML=h; }
+function abrirCarrinho(){ document.getElementById('modalCheckout').classList.add('show'); document.getElementById('formPedido').style.display='block'; document.getElementById('areaObrigado').style.display='none'; renderResumo(); }
+function fechar(id){ document.getElementById(id).classList.remove('show'); }
+function compartilharGPS(){ if(!navigator.geolocation){ alert('GPS não suportado'); return; } document.getElementById('gpsInfo').innerText='📍 Buscando GPS...'; navigator.geolocation.getCurrentPosition(pos=>{ const lat=pos.coords.latitude, lng=pos.coords.longitude; const link=`https://www.google.com/maps?q=${lat},${lng}`; document.getElementById('enderecoCli').value=`GPS: ${lat.toFixed(6)}, ${lng.toFixed(6)} - ${link}`; document.getElementById('gpsInfo').innerText='✅ GPS compartilhado!'; }, err=>{ document.getElementById('gpsInfo').innerText='Erro: '+err.message; }); }
+
+async function enviarPedido(){
+ const nome=document.getElementById('nomeCli').value.trim();
+ const end=document.getElementById('enderecoCli').value.trim();
+ const zap=document.getElementById('zapCli').value.trim();
+ if(!nome||!end||!zap){ alert('Preencha nome, endereço e WhatsApp!'); return; }
+ if(Object.keys(carrinho).length===0){ alert('Carrinho vazio!'); return; }
+ const btn=document.getElementById('btnEnviar'); btn.innerHTML='⏳ Enviando...'; btn.disabled=true;
+ const zapNumeros = zap.replace(/\D/g,'').replace(/^55/,''); const zapLink = `https://wa.me/55${zapNumeros}`;
+ let resumo=''; let total=0; for(let id in carrinho){ const p=produtos.find(x=>x.id==id); resumo+=`${carrinho[id]}x ${p.nome} - R$ ${(Number(p.preco)*carrinho[id]).toFixed(2)}\n`; total+=Number(p.preco)*carrinho[id]; }
+ const dados={acao:'novopedido', nome:nome, endereco:end, zap:zap, zapLink:zapLink, zapNumeros:zapNumeros, resumo:resumo, total:total.toFixed(2), emailDestino:'monicapinheiro.colares@gmail.com', data:new Date().toLocaleString('pt-BR'), itens:JSON.stringify(carrinho)};
+ const url=getUrl(); if(url && url.includes('script.google.com')){ try{ await fetch(url,{method:'POST',mode:'no-cors',body:JSON.stringify(dados)}); }catch(e){} }
+ document.getElementById('formPedido').style.display='none'; document.getElementById('areaObrigado').style.display='block';
+ carrinho={}; salvarTudo(); atualizarTotais(); renderGrade();
+ let seg=5; const contadorEl=document.getElementById('contador'); const intervalo=setInterval(()=>{ seg--; if(contadorEl) contadorEl.innerText=seg; if(seg<=0){ clearInterval(intervalo); fechar('modalCheckout'); document.getElementById('areaObrigado').style.display='none'; document.getElementById('formPedido').style.display='block'; btn.innerHTML='🍰 ENVIAR PEDIDO AGORA'; btn.disabled=false; document.getElementById('nomeCli').value=''; document.getElementById('enderecoCli').value=''; document.getElementById('zapCli').value=''; document.getElementById('gpsInfo').innerText=''; if(contadorEl) contadorEl.innerText='5'; } },1000);
+}
+
+document.getElementById('btnAdmInvisivel').addEventListener('click',()=>{ document.getElementById('modalAdmLogin').classList.add('show'); });
+function logarAdm(){ const u=document.getElementById('admUser').value.trim().toLowerCase(); const s=document.getElementById('admPass').value.trim(); if(u==='victor santos' && s==='ninodogral20'){ fechar('modalAdmLogin'); document.getElementById('modalAdm').classList.add('show'); } else{ alert('Usuário ou Senha Inválidos!'); } }
+
+async function salvarProduto(){
+ const img=document.getElementById('admImg').value.trim()||'https://via.placeholder.com/400x300?text=Bolo';
+ const nome=document.getElementById('admNome').value.trim();
+ const desc=document.getElementById('admDesc').value.trim();
+ const valor=parseFloat(document.getElementById('admValor').value);
+ const tipo=document.getElementById('admTipo').value.trim()||'Novo';
+ if(!nome||!valor){ alert('Nome e valor obrigatórios'); return; }
+ const id = Date.now();
+ const url=getUrl();
+ if(url && url.includes('script.google.com')){
+   try{ await fetch(url,{method:'POST',mode:'no-cors',body:JSON.stringify({acao:'addproduto', id:id, nome:nome, desc:desc||nome, preco:valor, img:img, tipo:tipo})}); setTimeout(carregarProdutosDaPlanilha, 1500); }catch(e){}
+ }
+ produtos.push({id:id, nome:nome, desc:desc||nome, preco:valor, img:img, tipo:tipo}); renderGrade();
+ document.getElementById('admImg').value=''; document.getElementById('admNome').value=''; document.getElementById('admDesc').value=''; document.getElementById('admValor').value=''; document.getElementById('admTipo').value='';
+}
+
+async function excluirProd(id){
+ if(!confirm('Excluir este bolo da vitrine e da planilha?')) return;
+ const url=getUrl();
+ if(url && url.includes('script.google.com')){ try{ await fetch(url,{method:'POST',mode:'no-cors',body:JSON.stringify({acao:'deleteproduto', id:id})}); }catch(e){} }
+ produtos=produtos.filter(p=>p.id!=id); delete carrinho[id]; salvarTudo(); renderGrade(); setTimeout(carregarProdutosDaPlanilha, 1000);
+}
+
+function renderAdmLista(){ const l=document.getElementById('admLista'); if(!l) return; l.innerHTML=''; produtos.forEach(p=>{ l.innerHTML+=`<div style="display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid #eee;font-size:12px"><div><b>${p.nome}</b> - R$ ${p.preco}<br><small style="color:#666">${String(p.desc).substring(0,50)}</small></div><button onclick="excluirProd(${p.id})" style="background:#fee2e2;color:#dc2626;border:none;border-radius:8px;padding:6px 10px;cursor:pointer;font-weight:700">Excluir</button></div>`; }); }
+
+carregarProdutosDaPlanilha();
+setInterval(carregarProdutosDaPlanilha, 5000);
+atualizarTotais();
+</script>
+</body>
+</html>
